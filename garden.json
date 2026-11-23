@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-23T04:51:43.341Z",
+  "generatedAt": "2026-11-23T05:27:57.337Z",
   "toolchain": "leanprover/lean4:v4.35.0",
   "repo": "https://github.com/Wenrwa/proof-garden",
   "build": {
     "ok": true,
     "axiomsChecked": true
   },
-  "proved": 5,
+  "proved": 6,
   "total": 10,
   "lemmas": {
     "proved": 4,
@@ -71,12 +71,13 @@
           "doc": "`gcd (fib n) (fib (n + 1)) = 1` for every `n`.",
           "statement": "theorem fib_coprime_succ (n : Nat) : Nat.gcd (fib n) (fib (n + 1)) = 1",
           "axioms": [
-            "sorryAx"
+            "propext",
+            "Quot.sound"
           ]
         }
       ],
-      "status": "growing",
-      "reason": "contains sorry"
+      "status": "proved",
+      "reason": null
     },
     {
       "id": "GaussSum",
