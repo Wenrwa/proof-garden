@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-23T04:38:05.191Z",
+  "generatedAt": "2026-11-23T04:41:02.226Z",
   "toolchain": "leanprover/lean4:v4.35.0",
   "repo": "https://github.com/Wenrwa/proof-garden",
   "build": {
     "ok": true,
     "axiomsChecked": true
   },
-  "proved": 0,
+  "proved": 1,
   "total": 10,
   "lemmas": {
     "proved": 4,
@@ -92,12 +92,13 @@
           "doc": "`1 + 2 + ... + n = n * (n + 1) / 2`.",
           "statement": "theorem gauss_sum (n : Nat) : sumRange (n + 1) (fun i => i) = n * (n + 1) / 2",
           "axioms": [
-            "sorryAx"
+            "propext",
+            "Quot.sound"
           ]
         }
       ],
-      "status": "growing",
-      "reason": "contains sorry"
+      "status": "proved",
+      "reason": null
     },
     {
       "id": "InfinitudeOfPrimes",

@@ -12,6 +12,8 @@ namespace ProofGarden
 
 /-- `1 + 2 + ... + n = n * (n + 1) / 2`. -/
 theorem gauss_sum (n : Nat) : sumRange (n + 1) (fun i => i) = n * (n + 1) / 2 := by
-  sorry
+  have h := two_mul_sum_upto n
+  rw [Nat.mul_comm 2] at h
+  exact (Nat.div_eq_of_eq_mul_left (Nat.zero_lt_succ 1) h.symm).symm
 
 end ProofGarden
