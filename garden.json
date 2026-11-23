@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-23T04:31:34.221Z",
+  "generatedAt": "2026-11-23T04:35:06.861Z",
   "toolchain": "leanprover/lean4:v4.35.0",
   "repo": "https://github.com/Wenrwa/proof-garden",
   "build": {
@@ -9,7 +9,7 @@
   "proved": 0,
   "total": 10,
   "lemmas": {
-    "proved": 2,
+    "proved": 3,
     "total": 4
   },
   "plants": [
@@ -315,12 +315,14 @@
           "doc": "Every natural number `n ≥ 2` is divisible by some prime.",
           "statement": "theorem exists_prime_factor {n : Nat} (h : 2 ≤ n) : ∃ p, IsPrime p ∧ p ∣ n",
           "axioms": [
-            "sorryAx"
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
           ]
         }
       ],
-      "status": "growing",
-      "reason": "contains sorry"
+      "status": "proved",
+      "reason": null
     }
   ]
 }
