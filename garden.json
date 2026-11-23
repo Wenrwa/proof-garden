@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-23T04:45:47.485Z",
+  "generatedAt": "2026-11-23T04:48:47.370Z",
   "toolchain": "leanprover/lean4:v4.35.0",
   "repo": "https://github.com/Wenrwa/proof-garden",
   "build": {
     "ok": true,
     "axiomsChecked": true
   },
-  "proved": 3,
+  "proved": 4,
   "total": 10,
   "lemmas": {
     "proved": 4,
@@ -27,12 +27,14 @@
           "doc": "No function from a type to its powerset (`α → Prop`) is surjective: there is always a subset `s` that `f` never hits.",
           "statement": "theorem cantor {α : Type} (f : α → (α → Prop)) : ¬ ∀ s : α → Prop, ∃ a, f a = s",
           "axioms": [
-            "sorryAx"
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
           ]
         }
       ],
-      "status": "growing",
-      "reason": "contains sorry"
+      "status": "proved",
+      "reason": null
     },
     {
       "id": "EuclidsLemma",
