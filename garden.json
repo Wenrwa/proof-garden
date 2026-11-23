@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-23T04:35:06.861Z",
+  "generatedAt": "2026-11-23T04:38:05.191Z",
   "toolchain": "leanprover/lean4:v4.35.0",
   "repo": "https://github.com/Wenrwa/proof-garden",
   "build": {
@@ -9,7 +9,7 @@
   "proved": 0,
   "total": 10,
   "lemmas": {
-    "proved": 3,
+    "proved": 4,
     "total": 4
   },
   "plants": [
@@ -294,12 +294,13 @@
           "doc": "If 2 divides `p * p`, then 2 divides `p`.",
           "statement": "theorem two_dvd_of_two_dvd_mul_self {p : Nat} (h : 2 ∣ p * p) : 2 ∣ p",
           "axioms": [
-            "sorryAx"
+            "propext",
+            "Quot.sound"
           ]
         }
       ],
-      "status": "growing",
-      "reason": "contains sorry"
+      "status": "proved",
+      "reason": null
     },
     {
       "id": "Lemmas/PrimeFactor",
