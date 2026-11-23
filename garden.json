@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-23T04:08:16.463Z",
+  "generatedAt": "2026-11-23T04:31:34.221Z",
   "toolchain": "leanprover/lean4:v4.35.0",
   "repo": "https://github.com/Wenrwa/proof-garden",
   "build": {
@@ -9,7 +9,7 @@
   "proved": 0,
   "total": 10,
   "lemmas": {
-    "proved": 1,
+    "proved": 2,
     "total": 4
   },
   "plants": [
@@ -243,21 +243,20 @@
           "name": "ProofGarden.fact_pos",
           "doc": "The factorial of any number is positive.",
           "statement": "theorem fact_pos (n : Nat) : 0 < fact n",
-          "axioms": [
-            "sorryAx"
-          ]
+          "axioms": []
         },
         {
           "name": "ProofGarden.dvd_fact",
           "doc": "Every `k` with `1 ≤ k ≤ n` divides `n!`.",
           "statement": "theorem dvd_fact {k n : Nat} (h₁ : 1 ≤ k) (h₂ : k ≤ n) : k ∣ fact n",
           "axioms": [
-            "sorryAx"
+            "propext",
+            "Quot.sound"
           ]
         }
       ],
-      "status": "growing",
-      "reason": "contains sorry"
+      "status": "proved",
+      "reason": null
     },
     {
       "id": "Lemmas/GaussDouble",
