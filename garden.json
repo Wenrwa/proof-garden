@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-23T04:48:47.370Z",
+  "generatedAt": "2026-11-23T04:51:43.341Z",
   "toolchain": "leanprover/lean4:v4.35.0",
   "repo": "https://github.com/Wenrwa/proof-garden",
   "build": {
     "ok": true,
     "axiomsChecked": true
   },
-  "proved": 4,
+  "proved": 5,
   "total": 10,
   "lemmas": {
     "proved": 4,
@@ -119,12 +119,14 @@
           "doc": "For every `n` there is a prime `p` with `n < p`.",
           "statement": "theorem infinitely_many_primes (n : Nat) : ∃ p, n < p ∧ IsPrime p",
           "axioms": [
-            "sorryAx"
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
           ]
         }
       ],
-      "status": "growing",
-      "reason": "contains sorry"
+      "status": "proved",
+      "reason": null
     },
     {
       "id": "Nicomachus",
