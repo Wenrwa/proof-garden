@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-23T05:27:57.337Z",
+  "generatedAt": "2026-11-23T05:31:11.985Z",
   "toolchain": "leanprover/lean4:v4.35.0",
   "repo": "https://github.com/Wenrwa/proof-garden",
   "build": {
     "ok": true,
     "axiomsChecked": true
   },
-  "proved": 6,
+  "proved": 7,
   "total": 10,
   "lemmas": {
     "proved": 4,
@@ -50,12 +50,13 @@
           "doc": "If `p` is prime and `p ∣ a * b`, then `p ∣ a` or `p ∣ b`.",
           "statement": "theorem euclids_lemma {p a b : Nat} (hp : IsPrime p) (h : p ∣ a * b) : p ∣ a ∨ p ∣ b",
           "axioms": [
-            "sorryAx"
+            "propext",
+            "Quot.sound"
           ]
         }
       ],
-      "status": "growing",
-      "reason": "contains sorry"
+      "status": "proved",
+      "reason": null
     },
     {
       "id": "FibonacciCoprime",
