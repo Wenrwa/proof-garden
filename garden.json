@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T21:28:08.188Z",
+  "generatedAt": "2026-11-23T04:08:16.463Z",
   "toolchain": "leanprover/lean4:v4.35.0",
   "repo": "https://github.com/Wenrwa/proof-garden",
   "build": {
@@ -9,7 +9,7 @@
   "proved": 0,
   "total": 10,
   "lemmas": {
-    "proved": 0,
+    "proved": 1,
     "total": 4
   },
   "plants": [
@@ -273,12 +273,13 @@
           "doc": "`2 * (0 + 1 + ... + n) = n * (n + 1)`.",
           "statement": "theorem two_mul_sum_upto (n : Nat) : 2 * sumRange (n + 1) (fun i => i) = n * (n + 1)",
           "axioms": [
-            "sorryAx"
+            "propext",
+            "Quot.sound"
           ]
         }
       ],
-      "status": "growing",
-      "reason": "contains sorry"
+      "status": "proved",
+      "reason": null
     },
     {
       "id": "Lemmas/Parity",
