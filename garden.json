@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-23T05:31:11.985Z",
+  "generatedAt": "2026-11-23T05:34:33.641Z",
   "toolchain": "leanprover/lean4:v4.35.0",
   "repo": "https://github.com/Wenrwa/proof-garden",
   "build": {
     "ok": true,
     "axiomsChecked": true
   },
-  "proved": 7,
+  "proved": 8,
   "total": 10,
   "lemmas": {
     "proved": 4,
@@ -137,19 +137,33 @@
       "blurb": "The sum of the first cubes is the square of the sum of the first numbers: `1³ + 2³ + ... + n³ = (1 + 2 + ... + n)²`.",
       "file": "ProofGarden/Nicomachus.lean",
       "url": "https://github.com/Wenrwa/proof-garden/blob/main/ProofGarden/Nicomachus.lean",
-      "dependsOn": [],
+      "dependsOn": [
+        "Lemmas/GaussDouble"
+      ],
       "decls": [
+        {
+          "name": "ProofGarden.nicomachus_step",
+          "doc": "Algebra step: if `2 * s = k * (k + 1)` then `s² + (k+1)³ = (s + (k+1))²`.",
+          "statement": "theorem nicomachus_step (s k : Nat) (h : 2 * s = k * (k + 1)) : s * s + (k + 1) ^ 3 = (s + (k + 1)) * (s + (k + 1))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
         {
           "name": "ProofGarden.nicomachus",
           "doc": "`0³ + 1³ + ... + n³ = (0 + 1 + ... + n)²`.",
           "statement": "theorem nicomachus (n : Nat) : sumRange (n + 1) (fun i => i ^ 3) = (sumRange (n + 1) (fun i => i)) ^ 2",
           "axioms": [
-            "sorryAx"
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
           ]
         }
       ],
-      "status": "growing",
-      "reason": "contains sorry"
+      "status": "proved",
+      "reason": null
     },
     {
       "id": "Pigeonhole",
