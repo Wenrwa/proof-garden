@@ -11,6 +11,11 @@ namespace ProofGarden
 
 /-- `(2⁰ + 2¹ + ... + 2ⁿ⁻¹) + 1 = 2ⁿ`. -/
 theorem sum_powers_of_two (n : Nat) : sumRange n (fun i => 2 ^ i) + 1 = 2 ^ n := by
-  sorry
+  induction n with
+  | zero => rfl
+  | succ k ih =>
+    have hs : sumRange (k + 1) (fun i => 2 ^ i) = sumRange k (fun i => 2 ^ i) + 2 ^ k := rfl
+    rw [hs, Nat.pow_succ]
+    omega
 
 end ProofGarden

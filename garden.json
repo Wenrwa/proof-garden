@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-23T04:43:25.563Z",
+  "generatedAt": "2026-11-23T04:45:47.485Z",
   "toolchain": "leanprover/lean4:v4.35.0",
   "repo": "https://github.com/Wenrwa/proof-garden",
   "build": {
     "ok": true,
     "axiomsChecked": true
   },
-  "proved": 2,
+  "proved": 3,
   "total": 10,
   "lemmas": {
     "proved": 4,
@@ -180,12 +180,13 @@
           "doc": "`(2⁰ + 2¹ + ... + 2ⁿ⁻¹) + 1 = 2ⁿ`.",
           "statement": "theorem sum_powers_of_two (n : Nat) : sumRange n (fun i => 2 ^ i) + 1 = 2 ^ n",
           "axioms": [
-            "sorryAx"
+            "propext",
+            "Quot.sound"
           ]
         }
       ],
-      "status": "growing",
-      "reason": "contains sorry"
+      "status": "proved",
+      "reason": null
     },
     {
       "id": "SqrtTwoIrrational",
