@@ -60,6 +60,14 @@
       axioms.length ? 'axioms: ' + axioms.map((a) => `<code>${esc(a)}</code>`).join(' ') : 'no axioms'}</div>`;
   }
 
+  // Who grew it: the HiveOp agent named on the PR that removed the last sorry.
+  function credit(p) {
+    const v = p.provenance;
+    if (p.status !== 'proved' || !v) return '';
+    const who = v.agent ? `Proved by <b>${esc(v.agent)}</b>, a HiveOp agent` : 'Proved by a HiveOp agent';
+    return `<div class="credit"><span aria-hidden="true">🌱</span> ${who} · <a href="${esc(v.url)}" target="_blank" rel="noopener">PR #${esc(v.pr)} ↗</a></div>`;
+  }
+
   function card(p) {
     const proved = p.status === 'proved';
     const d = p.decls[0] || {};
@@ -82,6 +90,7 @@
       <p class="blurb">${prose(p.kind === 'lemma' ? (d.doc || p.blurb) : p.blurb)}</p>
       ${sides}
       ${trust(p)}
+      ${credit(p)}
       ${code ? `<details class="proof"><summary>${proved ? 'Show the proof' : 'Show the open goal'}</summary><pre class="code">${highlight(code)}</pre></details>` : ''}
       <div class="foot">
         <span class="needs">${esc(needs)}</span>

@@ -16,6 +16,11 @@
 //                                        (proof code, Try-it bundles), keeping the
 //                                        existing verdicts; no Lean needed
 //
+// Each proved plant also gets `provenance`: the pull request that removed
+// its last `sorry` (from git history) and, when that PR names one, the
+// HiveOp agent that opened it (its `HiveOp-Agent:` line, read from the
+// public GitHub API). No network or no PR → no provenance; never an error.
+//
 // For the page it also records, per theorem, its Lean source (`code`) and,
 // per plant, a self-contained `bundle`: Defs, the helper lemmas it imports
 // (in order) and the file itself, with the ProofGarden imports removed, so
@@ -122,6 +127,41 @@ if (existsSync(lemDir)) {
   for (const f of readdirSync(lemDir).sort()) if (f.endsWith('.lean')) plants.push(parseFile(join(lemDir, f), 'lemma'));
 }
 
+// ---------- provenance: which PR (and which agent) grew each plant ----------
+
+const REPO_PATH = REPO_URL.replace('https://github.com/', '');
+const prCache = new Map();
+async function prInfo(n) {
+  if (prCache.has(n)) return prCache.get(n);
+  let agent = null;
+  try {
+    const res = await fetch(`https://api.github.com/repos/${REPO_PATH}/pulls/${n}`, { headers: { accept: 'application/vnd.github+json', 'user-agent': 'proof-garden' } });
+    if (res.ok) {
+      const body = (await res.json()).body || '';
+      const m = body.match(/^HiveOp-Agent:\s*(.+?)\s*$/m);
+      agent = m ? m[1].slice(0, 40) : null;
+    }
+  } catch { /* offline: the PR link alone */ }
+  const info = { pr: n, url: `${REPO_URL}/pull/${n}`, agent };
+  prCache.set(n, info);
+  return info;
+}
+async function provenanceOf(rel) {
+  // The newest commit that changed a `sorry` line in this file: the one that
+  // removed the last one. Its squash-merge subject ends "(#N)".
+  const r = spawnSync('git', ['log', '-G', 'sorry', '--format=%s', '--', rel], { cwd: ROOT, encoding: 'utf8' });
+  if (r.error || r.status !== 0) return null;
+  const m = (r.stdout.split('\n')[0] || '').match(/\(#(\d+)\)\s*$/);
+  return m ? prInfo(Number(m[1])) : null;
+}
+async function addProvenance(list) {
+  for (const p of list) {
+    if (p.status !== 'proved') { delete p.provenance; continue; }
+    const prov = await provenanceOf(p.file);
+    if (prov) p.provenance = prov;
+  }
+}
+
 // ---------- sources only: keep the verdicts, refresh the source fields ----------
 
 if (sourcesOnly) {
@@ -136,6 +176,7 @@ if (sourcesOnly) {
       if (fresh) d.code = fresh.code;
     }
   }
+  await addProvenance(prev.plants);
   writeFileSync(join(ROOT, 'garden.json'), JSON.stringify(prev, null, 2) + '\n');
   console.log('garden: source fields refreshed; verdicts unchanged');
   process.exit(0);
@@ -217,6 +258,7 @@ for (const p of plants) {
   delete p.hasSorry; delete p.hasAxiomDecl;
 }
 
+await addProvenance(plants);
 const theorems = plants.filter((p) => p.kind === 'theorem');
 const garden = {
   generatedAt: new Date().toISOString(),
